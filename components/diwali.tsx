@@ -1,10 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { 
-  ThumbsUp, MessageCircle, Send, MoreHorizontal, Bookmark, Link2, Code 
+import {
+  ThumbsUp,
+  MessageCircle,
+  Send,
+  MoreHorizontal,
+  Bookmark,
+  Link2,
+  Code,
 } from "lucide-react";
 import Link from "next/link";
+import PostHeader from "./Postheader";
 
 export default function Diwali() {
   const [liked, setLiked] = useState(false);
@@ -34,42 +41,8 @@ export default function Diwali() {
   return (
     <div className="max-w-2xl  mt-8">
       <div className="bg-white rounded-lg shadow overflow-hidden">
-
         {/* HEADER */}
-        <div className="p-4 flex items-start gap-3 relative">
-          <img src="/images/vineet.jpg" className="w-12 h-12 rounded-full" alt="avatar" />
-          <div className="flex-1 min-w-0">
-            <h3 className="text-sm font-semibold text-gray-900">Vineet Agrawal</h3>
-            <p className="text-xs text-gray-500">Healthcare Innovation Leader • 1st</p>
-            <p className="text-xs text-gray-500">1/14/2025 • 2 min read</p>
-          </div>
-
-          {/* Menu Button */}
-          <div className="relative">
-            <button
-              onClick={() => setShowMenu(!showMenu)}
-              className="p-1 rounded hover:bg-gray-100"
-            >
-              <MoreHorizontal className="text-gray-700" />
-            </button>
-            {showMenu && (
-              <div className="absolute top-8 right-0 bg-white w-52 shadow-lg border border-gray-200 rounded-lg p-2 z-50">
-                <div className="flex items-center gap-3 px-3 py-2 hover:bg-gray-100 rounded cursor-pointer">
-                  <Bookmark />
-                  Save
-                </div>
-                <div className="flex items-center gap-3 px-3 py-2 hover:bg-gray-100 rounded cursor-pointer">
-                  <Link2 />
-                  Copy link to post
-                </div>
-                <div className="flex items-center gap-3 px-3 py-2 hover:bg-gray-100 rounded cursor-pointer">
-                  <Code />
-                  Embed this post
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
+        <PostHeader />
 
         {/* IMAGE */}
         <div className="mt-3 relative">
@@ -85,10 +58,13 @@ export default function Diwali() {
         {/* CONTENT */}
         <div className="p-4">
           <p className="text-base text-gray-900 leading-relaxed mb-4">
-            Many ages after Rama’s lamps lit the path of hope, the world faced darkness again - and this time, it was a woman who carried the light.
+            Many ages after Rama’s lamps lit the path of hope, the world faced
+            darkness again - and this time, it was a woman who carried the
+            light.
           </p>
           <p className="text-base text-gray-900 leading-relaxed mb-4">
-            Her name was Satyabhama - queen, warrior, and the flame that even gods revered
+            Her name was Satyabhama - queen, warrior, and the flame that even
+            gods revered
           </p>
           <Link
             href="/diwalipost"
@@ -105,7 +81,9 @@ export default function Diwali() {
           {/* TOP STATS */}
           <div className="flex justify-between text-xs text-gray-600 pb-3 border-b border-gray-200">
             <div>{likeCount}</div>
-            <div><span>{comments.length}</span> comments • 89 reposts</div>
+            <div>
+              <span>{comments.length}</span> comments • 89 reposts
+            </div>
           </div>
 
           {/* ACTION BUTTONS */}
@@ -139,7 +117,11 @@ export default function Diwali() {
           {showCommentBox && (
             <div className="mt-3">
               <div className="flex items-start gap-3">
-                <img src="/images/vineet.jpg" alt="you" className="w-9 h-9 rounded-full mt-1" />
+                <img
+                  src="/images/vineet.jpg"
+                  alt="you"
+                  className="w-9 h-9 rounded-full mt-1"
+                />
                 <div className="flex-1">
                   <textarea
                     className="w-full p-3 border rounded-lg text-sm focus:ring-blue-500 focus:outline-none resize-none"
@@ -172,7 +154,11 @@ export default function Diwali() {
           <div className="mt-4 space-y-3">
             {comments.map((comment, i) => (
               <div key={i} className="flex items-start gap-3">
-                <img src="/images/vineet.jpg" className="w-9 h-9 rounded-full mt-1" alt="avatar" />
+                <img
+                  src="/images/vineet.jpg"
+                  className="w-9 h-9 rounded-full mt-1"
+                  alt="avatar"
+                />
                 <div>
                   <p className="text-sm">{comment}</p>
                 </div>
@@ -185,7 +171,6 @@ export default function Diwali() {
         {showSendPopup && (
           <div className="fixed inset-0 flex justify-center items-center z-50 p-4 bg-black/40">
             <div className="bg-white w-full max-w-md rounded-lg shadow-lg p-4 max-h-[80vh] overflow-y-auto">
-
               {/* HEADER */}
               <div className="flex justify-between items-center mb-3">
                 <h2 className="text-lg font-semibold">Share this Post</h2>
@@ -196,8 +181,6 @@ export default function Diwali() {
                   ×
                 </button>
               </div>
-
-
 
               {/* SEARCH */}
               <input
@@ -210,7 +193,11 @@ export default function Diwali() {
               <div className="space-y-3">
                 {usersToSend.map((user, idx) => (
                   <div key={idx} className="flex items-center gap-3">
-                    <img src="/images/vineet.jpg" className="w-10 h-10 rounded-full" alt={user.name} />
+                    <img
+                      src="/images/vineet.jpg"
+                      className="w-10 h-10 rounded-full"
+                      alt={user.name}
+                    />
                     <div>
                       <p className="font-medium">{user.name}</p>
                       <p className="text-xs text-gray-500">{user.role}</p>
@@ -224,7 +211,6 @@ export default function Diwali() {
 
               {/* SOCIAL SHARE ICONS */}
               <div className="flex items-center justify-center gap-6 border-t pt-4 pb-2 text-gray-700 mt-7">
-
                 <a href="#" className="hover:opacity-75">
                   <i className="fa-solid fa-link text-xl"></i>
                 </a>
@@ -244,13 +230,10 @@ export default function Diwali() {
                 <a href="#" className="hover:opacity-75">
                   <i className="fa-brands fa-facebook text-xl"></i>
                 </a>
-
               </div>
-
             </div>
           </div>
         )}
-
       </div>
     </div>
   );

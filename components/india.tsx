@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 
 import Link from "next/link";
+import Postheader from "./Postheader";
 
 export default function India() {
   const [liked, setLiked] = useState(false);
@@ -37,40 +38,7 @@ export default function India() {
       <div className="bg-white rounded-lg shadow overflow-hidden">
 
         {/* HEADER */}
-        <div className="p-4 flex items-start gap-3 relative">
-          <img src="/images/vineet.jpg" className="w-12 h-12 rounded-full" alt="avatar" />
-          <div className="flex-1 min-w-0">
-            <h3 className="text-sm font-semibold text-gray-900">Vineet Agrawal</h3>
-            <p className="text-xs text-gray-500">Healthcare Innovation Leader • 1st</p>
-            <p className="text-xs text-gray-500">1/14/2025 • 2 min read</p>
-          </div>
-
-          {/* Menu Button */}
-          <div className="relative">
-            <button
-              onClick={() => setShowMenu(!showMenu)}
-              className="p-1 rounded hover:bg-gray-100"
-            >
-              <MoreHorizontal className="text-gray-700" />
-            </button>
-            {showMenu && (
-              <div className="absolute top-8 right-0 bg-white w-52 shadow-lg border border-gray-200 rounded-lg p-2 z-50">
-                <div className="flex items-center gap-3 px-3 py-2 hover:bg-gray-100 rounded cursor-pointer">
-                  <Bookmark />
-                  Save
-                </div>
-                <div className="flex items-center gap-3 px-3 py-2 hover:bg-gray-100 rounded cursor-pointer">
-                  <Link2 />
-                  Copy link to post
-                </div>
-                <div className="flex items-center gap-3 px-3 py-2 hover:bg-gray-100 rounded cursor-pointer">
-                  <Code />
-                  Embed this post
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
+        <Postheader/>
 
         {/* IMAGE */}
         <div className="mt-3 relative">
