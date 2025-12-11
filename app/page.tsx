@@ -40,6 +40,7 @@ export default function homPage() {
       <Theworld />
       <Thebench />
       <Thebenchpost />
+      
     </>
   )
 }
