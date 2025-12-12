@@ -4,35 +4,28 @@ import { useState } from "react";
 import {
   ThumbsUp,
   MessageCircle,
-  Send,
-  MoreHorizontal,
-  Bookmark,
-  Link2,
-  Code,
-  FacebookIcon,
-  LinkedinIcon,
-  TwitterIcon,
-  Instagram,
+  Send
 } from "lucide-react";
 import Link from "next/link";
-import {
-  Share2,
-  Facebook,
-  Linkedin,
-  Twitter,
-  Mail,
-  MessageSquare,
-} from "lucide-react";
 import Postheader from "./Postheader";
 
-export default function PostCard() {
+interface PostCardProps {
+  image: string;
+  shortDescription: string;
+}
+
+export default function PostCard({ image, shortDescription }: PostCardProps) {
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(523);
   const [showCommentBox, setShowCommentBox] = useState(false);
   const [commentInput, setCommentInput] = useState("");
   const [comments, setComments] = useState<string[]>([]);
   const [showSendPopup, setShowSendPopup] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
+
+  const usersToSend = [
+    { name: "John Doe", role: "Software Engineer" },
+    { name: "Sarah Parker", role: "Designer" }
+  ];
 
   const handleLike = () => {
     setLiked(!liked);
@@ -45,52 +38,47 @@ export default function PostCard() {
     setCommentInput("");
   };
 
-  const usersToSend = [
-    { name: "John Doe", role: "Software Engineer" },
-    { name: "Sarah Parker", role: "Designer" },
-  ];
-
   return (
-    <div className="max-w-2xl  mt-8">
+    <div className="max-w-2xl mt-8">
       <div className="bg-white rounded-lg shadow overflow-hidden">
+
         {/* HEADER */}
         <Postheader />
 
-        {/* IMAGE */}
+        {/* ------------------------ */}
+        {/*       DYNAMIC IMAGE      */}
+        {/* ------------------------ */}
         <div className="mt-3 relative">
-          <a href="#">
-            <img
-              src="/images/harishchandra.jpeg"
-              className="w-full rounded-lg object-cover h-auto p-4"
-              alt="Harishchandra family illustration"
-            />
-          </a>
+          <img
+            src={image}
+            className="w-full rounded-lg object-cover h-auto p-4"
+            alt="Post Image"
+          />
         </div>
 
-        {/* CONTENT */}
+        {/* ------------------------ */}
+        {/*      DYNAMIC CONTENT     */}
+        {/* ------------------------ */}
         <div className="p-4">
           <p className="text-base text-gray-900 leading-relaxed mb-4">
-            In the age of heroes - the Treta Yuga - when lineages like the
-            Suryavansh were crowned with duty, there was a king named
-            Harishchandra. People spoke his name like a promise: where he ruled,
-            truth lived. This is the story of how that promise was tested, how a
-            king gave away his kingdom without flinching, and how the price of
-            that promise brought him to a place of smoke, sorrow and finally,
-            glory.
+            {shortDescription}
           </p>
+
           <Link
             href="/harishchandra"
             className="text-[15px] text-blue-600 font-medium inline-flex items-center gap-1 group"
           >
             <span className="relative after:content-[''] after:absolute after:left-0 after:bottom-[-2px] after:w-full after:h-[1px] after:bg-blue-600 after:scale-x-0 group-hover:after:scale-x-100 after:transition-transform after:duration-200">
               Read More
-              {/* <i className="fa-solid fa-angle-right ml-2"></i> */}
             </span>
           </Link>
         </div>
 
-        {/* REACTIONS */}
+        {/* ------------------------ */}
+        {/*      REACTIONS AREA      */}
+        {/* ------------------------ */}
         <div className="p-4">
+
           {/* TOP STATS */}
           <div className="flex justify-between text-xs text-gray-600 pb-3 border-b border-gray-200">
             <div>{likeCount}</div>
@@ -184,7 +172,6 @@ export default function PostCard() {
         {showSendPopup && (
           <div className="fixed inset-0 flex justify-center items-center z-50 p-4 bg-black/40">
             <div className="bg-white w-full max-w-md rounded-lg shadow-lg p-4 max-h-[80vh] overflow-y-auto">
-              {/* HEADER */}
               <div className="flex justify-between items-center mb-3">
                 <h2 className="text-lg font-semibold">Share this Post</h2>
                 <button
@@ -195,14 +182,12 @@ export default function PostCard() {
                 </button>
               </div>
 
-              {/* SEARCH */}
               <input
                 type="text"
                 placeholder="Search people"
                 className="border w-full p-2 rounded mb-4"
               />
 
-              {/* USERS LIST */}
               <div className="space-y-3">
                 {usersToSend.map((user, idx) => (
                   <div key={idx} className="flex items-center gap-3">
@@ -222,31 +207,17 @@ export default function PostCard() {
                 ))}
               </div>
 
-              {/* SOCIAL SHARE ICONS */}
               <div className="flex items-center justify-center gap-6 border-t pt-4 pb-2 text-gray-700 mt-7">
-                <a href="#" className="hover:opacity-75">
-                  <i className="fa-solid fa-link text-xl"></i>
-                </a>
-
-                <a href="#" className="hover:opacity-75">
-                  <i className="fa-brands fa-instagram text-xl"></i>
-                </a>
-
-                <a href="#" className="hover:opacity-75">
-                  <i className="fa-brands fa-linkedin text-xl"></i>
-                </a>
-
-                <a href="#" className="hover:opacity-75">
-                  <i className="fa-brands fa-x-twitter text-xl"></i>
-                </a>
-
-                <a href="#" className="hover:opacity-75">
-                  <i className="fa-brands fa-facebook text-xl"></i>
-                </a>
+                <i className="fa-solid fa-link text-xl"></i>
+                <i className="fa-brands fa-instagram text-xl"></i>
+                <i className="fa-brands fa-linkedin text-xl"></i>
+                <i className="fa-brands fa-x-twitter text-xl"></i>
+                <i className="fa-brands fa-facebook text-xl"></i>
               </div>
             </div>
           </div>
         )}
+
       </div>
     </div>
   );
