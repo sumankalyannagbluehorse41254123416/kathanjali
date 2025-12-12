@@ -16,8 +16,7 @@ import Alexander from '@/components/alexender';
 import Theworld from '@/components/theworld';
 import Thebench from '@/components/thebench';
 import Thebenchpost from '@/components/thebenchpost';
-import RightProfileCard from '@/components/rightProfile/RightProfileCard';
-import AboutCard from '@/components/rightProfile/AboutCard';
+
 
 
 
