@@ -1,5 +1,5 @@
 import CategoryPills from '@/components/fillter'
-import PostCard from '@/components/post'
+import PostCard from '@/components/PostCard'
 import Header from '@/components/header'
 import React from 'react'
 import './globals.css';
