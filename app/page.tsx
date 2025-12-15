@@ -1,25 +1,25 @@
-import CategoryPills from '@/components/fillter'
-import PostCard from '@/components/PostCard'
-import Header from '@/components/header'
-import React from 'react'
-import './globals.css';
-import Urmila from '@/components/urmila';
-import Diwali from '@/components/diwali';
-import Durga from '@/components/durga';
-import India from '@/components/india';
-import Theman from '@/components/theman';
-import Khudiram from '@/components/khudiram';
-import Laxmibai from '@/components/Laxmibai';
-import Barbarik from '@/components/barbarik';
-import Mahabharata from '@/components/mahabharat';
-import Alexander from '@/components/alexender';
-import Theworld from '@/components/theworld';
-import Thebench from '@/components/thebench';
-import Thebenchpost from '@/components/thebenchpost';
+import CategoryPills from "@/components/fillter";
+import PostCard from "@/components/PostCard";
+import Header from "@/components/header";
+import React from "react";
+import "./globals.css";
+import Urmila from "@/components/urmila";
+import Diwali from "@/components/diwali";
+import Durga from "@/components/durga";
+import India from "@/components/india";
+import Theman from "@/components/theman";
+import Khudiram from "@/components/khudiram";
+import Laxmibai from "@/components/Laxmibai";
+import Barbarik from "@/components/barbarik";
+import Mahabharata from "@/components/mahabharat";
+import Alexander from "@/components/alexender";
+import Theworld from "@/components/theworld";
+import Thebench from "@/components/thebench";
+import Thebenchpost from "@/components/thebenchpost";
 import { headers } from "next/headers";
 import { fetchPageData } from "@/services/fetchData.service";
 
-// Helper to clean HTML tags
+// Helper to remove HTML
 const stripHtml = (html: string = "") =>
   html
     .replace(/<[^>]*>/g, "")
@@ -60,28 +60,46 @@ export default async function homPage() {
     console.error("Fetch Error:", error);
   }
 
+  // Extract sections safely
   const sections =
     siteData.pageItemdataWithSubsection ||
     siteData.data?.pageItemdataWithSubsection ||
     [];
 
-  // Prevent error if empty
-  const firstSection = sections[0] || {};
+  // Safety fallbacks
+  const section0 = sections[0] || {};
+  const section1 = sections[1] || {};
+  const section2 = sections[2] || {};
 
   return (
     <>
       <Header />
       <CategoryPills />
 
-      {/* ⬇️ DYNAMIC POSTCARD - USING SECTION[0] */}
+      {/* SECTION 0 → PostCard */}
       <PostCard
-        image={firstSection.image || "/default.jpg"}
-        shortDescription={stripHtml(firstSection.shortDescription || "")}
+        image={section0.image || "/default.jpg"}
+        shortDescription={stripHtml(section0.shortDescription || "")}
       />
 
-      {/* Rest of your components */}
-      <Urmila />
-      <Diwali />
+      {/* SECTION 1 → Urmila */}
+      <Urmila
+        section={{
+          image: section1.image || "/default.jpg",
+          shortDescription: stripHtml(section1.shortDescription || "")
+        }}
+      />
+
+      {/* SECTION 2 → Diwali (updated version) */}
+      <Diwali
+        section={{
+          image: section2.image || "/default.jpg",
+          shortDescription: stripHtml(section2.shortDescription || ""),
+          title: stripHtml(section2.title || "")
+        }}
+      />
+
+      {/* Static components */}
       <Durga />
       <India />
       <Theman />

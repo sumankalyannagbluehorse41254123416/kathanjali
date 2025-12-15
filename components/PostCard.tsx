@@ -1,14 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import {
-  ThumbsUp,
-  MessageCircle,
-  Send
-} from "lucide-react";
+import { ThumbsUp, MessageCircle, Send } from "lucide-react";
 import Link from "next/link";
 import Postheader from "./Postheader";
-
+import Image from "next/image";
 interface PostCardProps {
   image: string;
   shortDescription: string;
@@ -24,7 +20,7 @@ export default function PostCard({ image, shortDescription }: PostCardProps) {
 
   const usersToSend = [
     { name: "John Doe", role: "Software Engineer" },
-    { name: "Sarah Parker", role: "Designer" }
+    { name: "Sarah Parker", role: "Designer" },
   ];
 
   const handleLike = () => {
@@ -41,7 +37,6 @@ export default function PostCard({ image, shortDescription }: PostCardProps) {
   return (
     <div className="max-w-2xl mt-8">
       <div className="bg-white rounded-lg shadow overflow-hidden">
-
         {/* HEADER */}
         <Postheader />
 
@@ -49,10 +44,13 @@ export default function PostCard({ image, shortDescription }: PostCardProps) {
         {/*       DYNAMIC IMAGE      */}
         {/* ------------------------ */}
         <div className="mt-3 relative">
-          <img
-            src={image}
-            className="w-full rounded-lg object-cover h-auto p-4"
+          <Image
+            src={image || "/placeholder.jpg"}
             alt="Post Image"
+            width={672}
+            height={391.14}
+            className="w-full rounded-lg object-cover h-auto p-4"
+            unoptimized // remove if your image domain is added in next.config.js
           />
         </div>
 
@@ -78,7 +76,6 @@ export default function PostCard({ image, shortDescription }: PostCardProps) {
         {/*      REACTIONS AREA      */}
         {/* ------------------------ */}
         <div className="p-4">
-
           {/* TOP STATS */}
           <div className="flex justify-between text-xs text-gray-600 pb-3 border-b border-gray-200">
             <div>{likeCount}</div>
@@ -217,7 +214,6 @@ export default function PostCard({ image, shortDescription }: PostCardProps) {
             </div>
           </div>
         )}
-
       </div>
     </div>
   );

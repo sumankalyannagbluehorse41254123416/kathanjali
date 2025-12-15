@@ -4,23 +4,25 @@ import { useState } from "react";
 import {
   ThumbsUp,
   MessageCircle,
-  Send,
-  MoreHorizontal,
-  Bookmark,
-  Link2,
-  Code,
+  Send
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import PostHeader from "./Postheader";
 
-export default function Diwali() {
+interface SectionData {
+  image?: string;
+  shortDescription?: string;
+  title?: string;
+}
+
+export default function Diwali({ section }: { section: SectionData }) {
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(523);
   const [showCommentBox, setShowCommentBox] = useState(false);
   const [commentInput, setCommentInput] = useState("");
   const [comments, setComments] = useState<string[]>([]);
   const [showSendPopup, setShowSendPopup] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
 
   const handleLike = () => {
     setLiked(!liked);
@@ -33,39 +35,37 @@ export default function Diwali() {
     setCommentInput("");
   };
 
-  const usersToSend = [
-    { name: "John Doe", role: "Software Engineer" },
-    { name: "Sarah Parker", role: "Designer" },
-  ];
-
   return (
-    <div className="max-w-2xl  mt-8">
+    <div className="max-w-2xl mt-8">
       <div className="bg-white rounded-lg shadow overflow-hidden">
+
         {/* HEADER */}
         <PostHeader />
 
-        {/* IMAGE */}
-        <div className="mt-3 relative">
-          <a href="#">
-            <img
-              src="/images/diwalii.jpeg"
-              className="w-full rounded-lg object-cover h-auto p-4"
-              alt="Harishchandra family illustration"
-            />
-          </a>
+        {/* IMAGE FROM section.image */}
+        <div className="mt-3 relative p-4">
+          <Image
+            src={section?.image || "/images/default.jpg"}
+            alt="Diwali Image"
+            width={1000}
+            height={600}
+            className="w-full rounded-lg object-cover h-auto"
+          />
         </div>
 
         {/* CONTENT */}
         <div className="p-4">
+
+          {/* 1st paragraph → section.shortDescription */}
           <p className="text-base text-gray-900 leading-relaxed mb-4">
-            Many ages after Rama’s lamps lit the path of hope, the world faced
-            darkness again - and this time, it was a woman who carried the
-            light.
+            {section?.shortDescription || ""}
           </p>
+
+          {/* 2nd paragraph → section.title */}
           <p className="text-base text-gray-900 leading-relaxed mb-4">
-            Her name was Satyabhama - queen, warrior, and the flame that even
-            gods revered
+            {section?.title || ""}
           </p>
+
           <Link
             href="/diwalipost"
             className="text-[15px] text-blue-600 font-medium inline-flex items-center gap-1 group"
@@ -78,6 +78,7 @@ export default function Diwali() {
 
         {/* REACTIONS */}
         <div className="p-4">
+
           {/* TOP STATS */}
           <div className="flex justify-between text-xs text-gray-600 pb-3 border-b border-gray-200">
             <div>{likeCount}</div>
@@ -117,11 +118,15 @@ export default function Diwali() {
           {showCommentBox && (
             <div className="mt-3">
               <div className="flex items-start gap-3">
-                <img
+
+                <Image
                   src="/images/vineet.jpg"
                   alt="you"
+                  width={40}
+                  height={40}
                   className="w-9 h-9 rounded-full mt-1"
                 />
+
                 <div className="flex-1">
                   <textarea
                     className="w-full p-3 border rounded-lg text-sm focus:ring-blue-500 focus:outline-none resize-none"
@@ -154,8 +159,10 @@ export default function Diwali() {
           <div className="mt-4 space-y-3">
             {comments.map((comment, i) => (
               <div key={i} className="flex items-start gap-3">
-                <img
+                <Image
                   src="/images/vineet.jpg"
+                  width={40}
+                  height={40}
                   className="w-9 h-9 rounded-full mt-1"
                   alt="avatar"
                 />
@@ -166,74 +173,6 @@ export default function Diwali() {
             ))}
           </div>
         </div>
-
-        {/* SEND POPUP */}
-        {showSendPopup && (
-          <div className="fixed inset-0 flex justify-center items-center z-50 p-4 bg-black/40">
-            <div className="bg-white w-full max-w-md rounded-lg shadow-lg p-4 max-h-[80vh] overflow-y-auto">
-              {/* HEADER */}
-              <div className="flex justify-between items-center mb-3">
-                <h2 className="text-lg font-semibold">Share this Post</h2>
-                <button
-                  onClick={() => setShowSendPopup(false)}
-                  className="text-gray-500 hover:text-black text-xl"
-                >
-                  ×
-                </button>
-              </div>
-
-              {/* SEARCH */}
-              <input
-                type="text"
-                placeholder="Search people"
-                className="border w-full p-2 rounded mb-4"
-              />
-
-              {/* USERS LIST */}
-              <div className="space-y-3">
-                {usersToSend.map((user, idx) => (
-                  <div key={idx} className="flex items-center gap-3">
-                    <img
-                      src="/images/vineet.jpg"
-                      className="w-10 h-10 rounded-full"
-                      alt={user.name}
-                    />
-                    <div>
-                      <p className="font-medium">{user.name}</p>
-                      <p className="text-xs text-gray-500">{user.role}</p>
-                    </div>
-                    <button className="ml-auto px-3 py-1 text-sm border rounded hover:bg-blue-600 hover:text-white">
-                      Send
-                    </button>
-                  </div>
-                ))}
-              </div>
-
-              {/* SOCIAL SHARE ICONS */}
-              <div className="flex items-center justify-center gap-6 border-t pt-4 pb-2 text-gray-700 mt-7">
-                <a href="#" className="hover:opacity-75">
-                  <i className="fa-solid fa-link text-xl"></i>
-                </a>
-
-                <a href="#" className="hover:opacity-75">
-                  <i className="fa-brands fa-instagram text-xl"></i>
-                </a>
-
-                <a href="#" className="hover:opacity-75">
-                  <i className="fa-brands fa-linkedin text-xl"></i>
-                </a>
-
-                <a href="#" className="hover:opacity-75">
-                  <i className="fa-brands fa-x-twitter text-xl"></i>
-                </a>
-
-                <a href="#" className="hover:opacity-75">
-                  <i className="fa-brands fa-facebook text-xl"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );

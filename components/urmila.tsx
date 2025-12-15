@@ -1,20 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { 
-  ThumbsUp, MessageCircle, Send, MoreHorizontal, Bookmark, Link2, Code 
-} from "lucide-react";
+import { ThumbsUp, MessageCircle, Send } from "lucide-react";
 import Link from "next/link";
 import PostHeader from "./Postheader";
+import Image from "next/image";
+interface SectionData {
+  image: string;
+  shortDescription: string;
+}
 
-export default function Urmila() {
+export default function Urmila({ section }: { section: SectionData }) {
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(523);
   const [showCommentBox, setShowCommentBox] = useState(false);
   const [commentInput, setCommentInput] = useState("");
   const [comments, setComments] = useState<string[]>([]);
   const [showSendPopup, setShowSendPopup] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
 
   const handleLike = () => {
     setLiked(!liked);
@@ -33,28 +35,30 @@ export default function Urmila() {
   ];
 
   return (
-    <div className="max-w-2xl  mt-8">
+    <div className="max-w-2xl mt-8">
       <div className="bg-white rounded-lg shadow overflow-hidden">
-
         {/* HEADER */}
-      <PostHeader/>
+        <PostHeader />
 
-        {/* IMAGE */}
+        {/* DYNAMIC IMAGE */}
         <div className="mt-3 relative">
-          <a href="#">
-            <img
-              src="/images/urmila.jpeg"
-              className="w-full rounded-lg object-cover h-auto p-4"
-              alt="Harishchandra family illustration"
-            />
-          </a>
+          <Image
+            src={section?.image || "/images/default.jpg"}
+            alt="section-image"
+            width={672}
+            height={391.14} // <-- required
+            className="w-full rounded-lg object-cover h-auto p-4"
+          />
         </div>
 
-        {/* CONTENT */}
+        {/* DYNAMIC TEXT CONTENT */}
         <div className="p-4">
-          <p className="text-base text-gray-900 leading-relaxed mb-4">
-            Every great hero’s journey rests on a thousand silent acts of service. We celebrate the triumphant names - Rama, Lakshmana, Sita, Hanuman, but what of the legions of invisible hearts that held it all together? In the epic of Ramayana, aside from the principal trio, there were warriors like Bharata, the river-boatman Kevat, the sage Shabari, the forest-guide Shabari and many more whose names rarely ring out.
-          </p>
+          <p
+            className="text-base text-gray-900 leading-relaxed mb-4"
+            dangerouslySetInnerHTML={{
+              __html: section?.shortDescription || "",
+            }}
+          />
           <Link
             href="/urmilapost"
             className="text-[15px] text-blue-600 font-medium inline-flex items-center gap-1 group"
@@ -64,13 +68,14 @@ export default function Urmila() {
             </span>
           </Link>
         </div>
-
         {/* REACTIONS */}
         <div className="p-4">
           {/* TOP STATS */}
           <div className="flex justify-between text-xs text-gray-600 pb-3 border-b border-gray-200">
             <div>{likeCount}</div>
-            <div><span>{comments.length}</span> comments • 89 reposts</div>
+            <div>
+              <span>{comments.length}</span> comments • 89 reposts
+            </div>
           </div>
 
           {/* ACTION BUTTONS */}
@@ -104,7 +109,11 @@ export default function Urmila() {
           {showCommentBox && (
             <div className="mt-3">
               <div className="flex items-start gap-3">
-                <img src="/images/vineet.jpg" alt="you" className="w-9 h-9 rounded-full mt-1" />
+                <img
+                  src="/images/vineet.jpg"
+                  alt="you"
+                  className="w-9 h-9 rounded-full mt-1"
+                />
                 <div className="flex-1">
                   <textarea
                     className="w-full p-3 border rounded-lg text-sm focus:ring-blue-500 focus:outline-none resize-none"
@@ -137,7 +146,11 @@ export default function Urmila() {
           <div className="mt-4 space-y-3">
             {comments.map((comment, i) => (
               <div key={i} className="flex items-start gap-3">
-                <img src="/images/vineet.jpg" className="w-9 h-9 rounded-full mt-1" alt="avatar" />
+                <img
+                  src="/images/vineet.jpg"
+                  className="w-9 h-9 rounded-full mt-1"
+                  alt="avatar"
+                />
                 <div>
                   <p className="text-sm">{comment}</p>
                 </div>
@@ -150,7 +163,6 @@ export default function Urmila() {
         {showSendPopup && (
           <div className="fixed inset-0 flex justify-center items-center z-50 p-4 bg-black/40">
             <div className="bg-white w-full max-w-md rounded-lg shadow-lg p-4 max-h-[80vh] overflow-y-auto">
-
               {/* HEADER */}
               <div className="flex justify-between items-center mb-3">
                 <h2 className="text-lg font-semibold">Share this Post</h2>
@@ -161,8 +173,6 @@ export default function Urmila() {
                   ×
                 </button>
               </div>
-
-
 
               {/* SEARCH */}
               <input
@@ -175,7 +185,11 @@ export default function Urmila() {
               <div className="space-y-3">
                 {usersToSend.map((user, idx) => (
                   <div key={idx} className="flex items-center gap-3">
-                    <img src="/images/vineet.jpg" className="w-10 h-10 rounded-full" alt={user.name} />
+                    <img
+                      src="/images/vineet.jpg"
+                      className="w-10 h-10 rounded-full"
+                      alt={user.name}
+                    />
                     <div>
                       <p className="font-medium">{user.name}</p>
                       <p className="text-xs text-gray-500">{user.role}</p>
@@ -189,7 +203,6 @@ export default function Urmila() {
 
               {/* SOCIAL SHARE ICONS */}
               <div className="flex items-center justify-center gap-6 border-t pt-4 pb-2 text-gray-700 mt-7">
-
                 <a href="#" className="hover:opacity-75">
                   <i className="fa-solid fa-link text-xl"></i>
                 </a>
@@ -209,13 +222,10 @@ export default function Urmila() {
                 <a href="#" className="hover:opacity-75">
                   <i className="fa-brands fa-facebook text-xl"></i>
                 </a>
-
               </div>
-
             </div>
           </div>
         )}
-
       </div>
     </div>
   );
